@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Markdown Viewer</title>
+   <!-- Connecting the marked.js library -->
+   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+
+<!-- Container for displaying Markdown -->
+<div id="markdown-container"></div>
+
+<script>
+   // Container ID
+   const containerId = 'markdown-container';
+
+   // Path to .md file
+   const mdFilePath = './file.md';
+
+   // Function to load and display .md file
+   function loadAndDisplayMarkdown() {
+     // Loading .md file
+     fetch(mdFilePath)
+       .then(response => response.text())
+       .then(mdContent => {
+         // Convert Markdown to HTML
+         const htmlContent = marked(mdContent);
+         // Insert HTML content into the container
+         document.getElementById(containerId).innerHTML = htmlContent;
+       })
+       .catch(error => console.error('Error loading Markdown file:', error));
+   }
+
+   // Call the function when the page loads
+   window.onload = loadAndDisplayMarkdown;
+
+   // Update every 5 seconds (or specify another interval)
+   setInterval(loadAndDisplayMarkdown, 5000);
+</script>
+
+</body>
+</html>
